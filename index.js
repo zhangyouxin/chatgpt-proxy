@@ -49,6 +49,24 @@ app.get("/api/wx_openid", async (req, res) => {
   }
 });
 
+app.post("/api/gpt", async (req, res) => {
+  axios
+    .post(
+      "https://api.openai.com/v1/completions",
+      req.body,
+      {
+        headers: {
+          "content-type": "application/json",
+          Authorization:
+            "Bearer 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",
+        },
+      }
+    )
+    .then((res) => {
+      res.send(res);
+    });
+});
+
 const port = process.env.PORT || 80;
 
 async function bootstrap() {
