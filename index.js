@@ -1,4 +1,5 @@
 const path = require("path");
+const axios = require("axios");
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
@@ -50,6 +51,9 @@ app.get("/api/wx_openid", async (req, res) => {
 });
 
 app.post("/api/gpt", async (req, res) => {
+  console.log('====================================');
+  console.log('req.body', req.body);
+  console.log('====================================');
   axios
     .post(
       "https://api.openai.com/v1/completions",
@@ -58,19 +62,22 @@ app.post("/api/gpt", async (req, res) => {
         headers: {
           "content-type": "application/json",
           Authorization:
-            "Bearer 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",
+            "Bearer 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",
         },
       }
     )
-    .then((res) => {
-      res.send(res);
+    .then((result) => {
+      console.log('====================================');
+      console.log("result", result.data);
+      console.log('====================================');
+      res.send(result.data);
     });
 });
 
 const port = process.env.PORT || 80;
 
 async function bootstrap() {
-  await initDB();
+  // await initDB();
   app.listen(port, () => {
     console.log("启动成功", port);
   });
